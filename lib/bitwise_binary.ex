@@ -1,13 +1,6 @@
 defmodule Bitwise.Binary do
   @moduledoc """
   Simple module to extend bitwise operations to full binaries (and not just integers)
-  TODO: Rewrite everything to interpret the binaries as unsigned big integer
-  bin_size = byte_size(bin) * 8
-  <<bin_int :: unsigned-big-integer-size(ibn_size)>> = bin
-
-  TODO: Add property to generate ints, compare these vs erlang functions.
-
-  TODO: Add left and right rotation
   """
   
   @doc """
