@@ -147,4 +147,42 @@ defmodule Bitwise.Binary do
     << :erlang.bsr(:binary.decode_unsigned(left), right) :: unsigned-big-integer-size(bit_size) >>
   end
 
+  @doc """
+  Calculates the result of a binary left rotation
+
+      iex> brl(<<255, 0>>, 1)
+      <<254, 1>>
+
+  """
+  def brl("", _), do: ""
+  def brl(left, right) when is_binary(left) and is_integer(right) and right < 0 do
+    brr(left, -right)
+  end
+
+  def brl(left, right) when is_binary(left) and is_integer(right) and right >= 0 do
+    bit_size = byte_size(left) * 8
+    rotation = rem(right, bit_size)
+    <<head :: bitstring-size(rotation), tail :: bitstring>> = left
+    <<tail::bitstring, head::bitstring>>
+  end
+
+  @doc """
+  Calculates the result of a binary right rotation
+
+      iex> brr(<<255, 0>>, 1)
+      <<127, 128>>
+
+  """
+  def brr("", _), do: ""
+  def brr(left, right) when is_binary(left) and is_integer(right) and right < 0 do
+    brl(left, -right)
+  end
+
+  def brr(left, right) when is_binary(left) and is_integer(right) and right >= 0 do
+    bit_size = byte_size(left) * 8
+    rotation = bit_size - rem(right, bit_size)
+    <<head :: bitstring-size(rotation), tail :: bitstring>> = left
+    <<tail::bitstring, head::bitstring>>
+  end
+
 end

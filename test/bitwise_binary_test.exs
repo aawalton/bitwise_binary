@@ -81,4 +81,19 @@ defmodule Bitwise.Binary.Test do
     end
   end
 
+  property "shifting full length should always result in zero" do
+    forall left <- binary() do
+      bit_size = byte_size(left) * 8
+      assert bsr(left, bit_size) == <<0 :: size(bit_size)>>
+      assert bsl(left, bit_size) == <<0 :: size(bit_size)>>
+    end
+  end
+
+  property "rotating one way and back by the same amount is equal to the start" do
+    forall {left, rotation} <- {binary(), integer()} do
+      assert (left |> brl(rotation) |> brr(rotation)) == left
+      assert (left |> brr(rotation) |> brl(rotation)) == left
+    end
+  end
+
 end
