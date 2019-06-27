@@ -6,9 +6,8 @@ defmodule Bitwise.Binary.Test do
 
   import Bitwise.Binary
 
-  property "the result of a bitwise binary is a binary", [numtests: 1000] do
-
-    forall binary <- binary() do 
+  property "the result of a bitwise binary is a binary", numtests: 1000 do
+    forall binary <- binary() do
       assert is_binary(bnot(binary))
       assert is_binary(~~~binary)
 
@@ -27,10 +26,6 @@ defmodule Bitwise.Binary.Test do
         assert is_binary(binary ^^^ binary2)
         assert is_binary(bxor(binary, binary2))
       end
-
     end
-
   end
-
 end
-

@@ -24,7 +24,7 @@ defmodule Bitwise.Binary do
   def band(left, right) when is_binary(left) and is_binary(right) do
     Enum.zip(:erlang.binary_to_list(left), :erlang.binary_to_list(right))
     |> Enum.map(fn {x, y} -> :erlang.band(x, y) end)
-    |> :erlang.list_to_binary()  
+    |> :erlang.list_to_binary()
   end
 
   @doc """
@@ -47,7 +47,7 @@ defmodule Bitwise.Binary do
   """
   def bnot(expr) when is_binary(expr) do
     :erlang.binary_to_list(expr)
-    |> Enum.map(fn x -> << :erlang.bnot(x) >> end)
+    |> Enum.map(fn x -> <<:erlang.bnot(x)>> end)
     |> Enum.join("")
   end
 
@@ -61,7 +61,7 @@ defmodule Bitwise.Binary do
   def left ||| right when is_binary(left) and is_binary(right) do
     bor(left, right)
   end
-    
+
   @doc """
   Calculates the bitwise OR of its arguments.
 
@@ -72,7 +72,7 @@ defmodule Bitwise.Binary do
   def bor(left, right) when is_binary(left) and is_binary(right) do
     Enum.zip(:erlang.binary_to_list(left), :erlang.binary_to_list(right))
     |> Enum.map(fn {x, y} -> :erlang.bor(x, y) end)
-    |> :erlang.list_to_binary()  
+    |> :erlang.list_to_binary()
   end
 
   @doc """
@@ -95,7 +95,7 @@ defmodule Bitwise.Binary do
   """
   def bsl(left, right) when is_binary(left) and is_integer(right) do
     :erlang.binary_to_list(left)
-    |> Enum.map(fn x -> << :erlang.bsl(x, right) >> end)
+    |> Enum.map(fn x -> <<:erlang.bsl(x, right)>> end)
     |> Enum.join("")
   end
 
@@ -119,7 +119,7 @@ defmodule Bitwise.Binary do
   """
   def bsr(left, right) when is_binary(left) and is_integer(right) do
     :erlang.binary_to_list(left)
-    |> Enum.map(fn x -> << :erlang.bsr(x, right) >> end)
+    |> Enum.map(fn x -> <<:erlang.bsr(x, right)>> end)
     |> Enum.join("")
   end
 
@@ -144,7 +144,6 @@ defmodule Bitwise.Binary do
   def bxor(left, right) when is_binary(left) and is_binary(right) do
     Enum.zip(:erlang.binary_to_list(left), :erlang.binary_to_list(right))
     |> Enum.map(fn {x, y} -> :erlang.bxor(x, y) end)
-    |> :erlang.list_to_binary()  
+    |> :erlang.list_to_binary()
   end
-
 end

@@ -7,11 +7,13 @@ defmodule BitwiseBinary.MixProject do
   def project do
     [
       app: :bitwise_binary,
-      version: "0.1.0",
-      elixir: "~> 1.8",
+      version: @version,
+      elixir: "~> 1.5",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      description: "Simple module to extend bitwise operations to full binaries (and not just integers).",
+      description:
+        "Simple module to extend bitwise operations to full binaries (and not just integers).",
+      package: package()
     ]
   end
 
@@ -25,7 +27,8 @@ defmodule BitwiseBinary.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:propcheck, "~> 1.1.5", only: [:test, :dev]}
+      {:propcheck, "~> 1.1.5", only: [:test, :dev]},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 
@@ -35,5 +38,4 @@ defmodule BitwiseBinary.MixProject do
       links: %{"GitHub" => @repo_url}
     ]
   end
-
 end
