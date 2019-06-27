@@ -16,6 +16,8 @@ defmodule Bitwise.Binary.Test do
         assert is_binary(bsl(left, right))
         assert is_binary(left >>> right)
         assert is_binary(bsr(left, right))
+        assert is_binary(brl(left, right))
+        assert is_binary(brr(left, right))
       end
 
       forall right <- binary() do
@@ -39,6 +41,8 @@ defmodule Bitwise.Binary.Test do
         assert byte_size(bsl(left, right)) == byte_size(left)
         assert byte_size(left >>> right) == byte_size(left)
         assert byte_size(bsr(left, right)) == byte_size(left)
+        assert byte_size(brl(left, right)) == byte_size(left)
+        assert byte_size(brr(left, right)) == byte_size(left)
       end
 
       forall right <- binary() do
