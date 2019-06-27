@@ -6,8 +6,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the bitwise AND of its arguments.
 
-    iex> <<9, 0>> &&& <<3, 0>>
-    <<1, 0>>
+      iex> <<9, 0>> &&& <<3, 0>>
+      <<1, 0>>
 
   """
   def left &&& right when is_binary(left) and is_binary(right) do
@@ -17,8 +17,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the bitwise AND of its arguments.
 
-    iex> band(<<9, 0>>, <<3, 0>>)
-    <<1, 0>>
+      iex> band(<<9, 0>>, <<3, 0>>)
+      <<1, 0>>
 
   """
   def band(left, right) when is_binary(left) and is_binary(right) do
@@ -30,8 +30,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the bitwise NOT of its arguments.
 
-    iex> ~~~<<2, 0>>
-    <<253, 255>>
+      iex> ~~~<<2, 0>>
+      <<253, 255>>
 
   """
   def ~~~expr when is_binary(expr) do
@@ -41,8 +41,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the bitwise NOT of its arguments.
 
-    iex> bnot(<<2, 0>>)
-    <<253, 255>>
+      iex> bnot(<<2, 0>>)
+      <<253, 255>>
 
   """
   def bnot(expr) when is_binary(expr) do
@@ -54,8 +54,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the bitwise OR of its arguments.
 
-    iex> <<9, 0>> ||| <<3, 0>>
-    <<11, 0>>
+      iex> <<9, 0>> ||| <<3, 0>>
+      <<11, 0>>
 
   """
   def left ||| right when is_binary(left) and is_binary(right) do
@@ -65,8 +65,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the bitwise OR of its arguments.
 
-    iex> bor(<<9, 0>>, <<3, 0>>)
-    <<11, 0>>
+      iex> bor(<<9, 0>>, <<3, 0>>)
+      <<11, 0>>
 
   """
   def bor(left, right) when is_binary(left) and is_binary(right) do
@@ -78,8 +78,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the result of an arithmetic left shift.
 
-    iex> <<1, 0>> <<< 2
-    <<4, 0>>
+      iex> <<1, 0>> <<< 2
+      <<4, 0>>
 
   """
   def left <<< right when is_binary(left) and is_integer(right) do
@@ -89,8 +89,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the result of an arithmetic left shift.
 
-    iex> <<1, 0>> <<< 2
-    <<4, 0>>
+      iex> <<1, 0>> <<< 2
+      <<4, 0>>
 
   """
   def bsl(left, right) when is_binary(left) and is_integer(right) do
@@ -102,8 +102,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the result of an arithmetic right shift.
 
-    iex> <<4, 0>> >>> 2
-    <<1, 0>>
+      iex> <<4, 0>> >>> 2
+      <<1, 0>>
 
   """
   def left >>> right when is_binary(left) and is_integer(right) do
@@ -113,8 +113,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the result of an arithmetic right shift.
 
-    iex> <<4, 0>> >>> 2
-    <<1, 0>>
+      iex> <<4, 0>> >>> 2
+      <<1, 0>>
 
   """
   def bsr(left, right) when is_binary(left) and is_integer(right) do
@@ -126,8 +126,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the bitwise XOR of its arguments.
 
-    iex> <<9, 0>> ^^^ <<3, 0>>
-    <<10, 0>>
+      iex> <<9, 0>> ^^^ <<3, 0>>
+      <<10, 0>>
 
   """
   def left ^^^ right when is_binary(left) and is_binary(right) do
@@ -137,8 +137,8 @@ defmodule Bitwise.Binary do
   @doc """
   Calculates the bitwise XOR of its arguments.
 
-    iex> <<9, 0>> ^^^ <<3, 0>>
-    <<10, 0>>
+      iex> <<9, 0>> ^^^ <<3, 0>>
+      <<10, 0>>
 
   """
   def bxor(left, right) when is_binary(left) and is_binary(right) do
