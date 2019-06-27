@@ -9,31 +9,7 @@ defmodule Bitwise.Binary do
 
   TODO: Add left and right rotation
   """
-
-  @doc """
-  Calculates the bitwise AND of its arguments.
-
-      iex> <<9, 0>> &&& <<3, 0>>
-      <<1, 0>>
-
-  """
-  def left &&& right when is_binary(left) and is_binary(right) do
-    band(left, right)
-  end
-
-  @doc """
-  Calculates the bitwise AND of its arguments.
-
-      iex> band(<<9, 0>>, <<3, 0>>)
-      <<1, 0>>
-
-  """
-  def band(left, right) when is_binary(left) and is_binary(right) do
-    Enum.zip(:erlang.binary_to_list(left), :erlang.binary_to_list(right))
-    |> Enum.map(fn {x, y} -> :erlang.band(x, y) end)
-    |> :erlang.list_to_binary()
-  end
-
+  
   @doc """
   Calculates the bitwise NOT of its arguments.
 
@@ -42,7 +18,8 @@ defmodule Bitwise.Binary do
 
   """
   def ~~~expr when is_binary(expr) do
-    bnot(expr)
+    bit_size = byte_size(expr) * 8
+    << expr |> :binary.decode_unsigned |> :erlang.bnot :: unsigned-big-integer-size(bit_size) >>
   end
 
   @doc """
@@ -53,9 +30,32 @@ defmodule Bitwise.Binary do
 
   """
   def bnot(expr) when is_binary(expr) do
-    :erlang.binary_to_list(expr)
-    |> Enum.map(fn x -> <<:erlang.bnot(x)>> end)
-    |> Enum.join("")
+    bit_size = byte_size(expr) * 8
+    << expr |> :binary.decode_unsigned |> :erlang.bnot :: unsigned-big-integer-size(bit_size) >>
+  end
+
+  @doc """
+  Calculates the bitwise AND of its arguments.
+
+      iex> <<9, 0>> &&& <<3, 0>>
+      <<1, 0>>
+
+  """
+  def left &&& right when is_binary(left) and is_binary(right) do
+    bit_size = max(byte_size(left), byte_size(right)) * 8
+    << :erlang.band(:binary.decode_unsigned(left), :binary.decode_unsigned(right)) :: unsigned-big-integer-size(bit_size) >>
+  end
+
+  @doc """
+  Calculates the bitwise AND of its arguments.
+
+      iex> band(<<9, 0>>, <<3, 0>>)
+      <<1, 0>>
+
+  """
+  def band(left, right) when is_binary(left) and is_binary(right) do
+    bit_size = max(byte_size(left), byte_size(right)) * 8
+    << :erlang.band(:binary.decode_unsigned(left), :binary.decode_unsigned(right)) :: unsigned-big-integer-size(bit_size) >>
   end
 
   @doc """
@@ -66,7 +66,8 @@ defmodule Bitwise.Binary do
 
   """
   def left ||| right when is_binary(left) and is_binary(right) do
-    bor(left, right)
+    bit_size = max(byte_size(left), byte_size(right)) * 8
+    << :erlang.bor(:binary.decode_unsigned(left), :binary.decode_unsigned(right)) :: unsigned-big-integer-size(bit_size) >>
   end
 
   @doc """
@@ -77,57 +78,8 @@ defmodule Bitwise.Binary do
 
   """
   def bor(left, right) when is_binary(left) and is_binary(right) do
-    Enum.zip(:erlang.binary_to_list(left), :erlang.binary_to_list(right))
-    |> Enum.map(fn {x, y} -> :erlang.bor(x, y) end)
-    |> :erlang.list_to_binary()
-  end
-
-  @doc """
-  Calculates the result of an arithmetic left shift.
-
-      iex> <<1, 0>> <<< 2
-      <<4, 0>>
-
-  """
-  def left <<< right when is_binary(left) and is_integer(right) do
-    bsl(left, right)
-  end
-
-  @doc """
-  Calculates the result of an arithmetic left shift.
-
-      iex> <<1, 0>> <<< 2
-      <<4, 0>>
-
-  """
-  def bsl(left, right) when is_binary(left) and is_integer(right) do
-    :erlang.binary_to_list(left)
-    |> Enum.map(fn x -> <<:erlang.bsl(x, right)>> end)
-    |> Enum.join("")
-  end
-
-  @doc """
-  Calculates the result of an arithmetic right shift.
-
-      iex> <<4, 0>> >>> 2
-      <<1, 0>>
-
-  """
-  def left >>> right when is_binary(left) and is_integer(right) do
-    bsr(left, right)
-  end
-
-  @doc """
-  Calculates the result of an arithmetic right shift.
-
-      iex> <<4, 0>> >>> 2
-      <<1, 0>>
-
-  """
-  def bsr(left, right) when is_binary(left) and is_integer(right) do
-    :erlang.binary_to_list(left)
-    |> Enum.map(fn x -> <<:erlang.bsr(x, right)>> end)
-    |> Enum.join("")
+    bit_size = max(byte_size(left), byte_size(right)) * 8
+    << :erlang.bor(:binary.decode_unsigned(left), :binary.decode_unsigned(right)) :: unsigned-big-integer-size(bit_size) >>
   end
 
   @doc """
@@ -138,7 +90,8 @@ defmodule Bitwise.Binary do
 
   """
   def left ^^^ right when is_binary(left) and is_binary(right) do
-    bxor(left, right)
+    bit_size = max(byte_size(left), byte_size(right)) * 8
+    << :erlang.bxor(:binary.decode_unsigned(left), :binary.decode_unsigned(right)) :: unsigned-big-integer-size(bit_size) >>
   end
 
   @doc """
@@ -149,8 +102,56 @@ defmodule Bitwise.Binary do
 
   """
   def bxor(left, right) when is_binary(left) and is_binary(right) do
-    Enum.zip(:erlang.binary_to_list(left), :erlang.binary_to_list(right))
-    |> Enum.map(fn {x, y} -> :erlang.bxor(x, y) end)
-    |> :erlang.list_to_binary()
+    bit_size = max(byte_size(left), byte_size(right)) * 8
+    << :erlang.bxor(:binary.decode_unsigned(left), :binary.decode_unsigned(right)) :: unsigned-big-integer-size(bit_size) >>
   end
+  
+  @doc """
+  Calculates the result of an arithmetic left shift.
+
+      iex> <<1, 0>> <<< 2
+      <<4, 0>>
+
+  """
+  def left <<< right when is_binary(left) and is_integer(right) do
+    bit_size = byte_size(left) * 8
+    << :erlang.bsl(:binary.decode_unsigned(left), right) :: unsigned-big-integer-size(bit_size) >>
+  end
+
+  @doc """
+  Calculates the result of an arithmetic left shift.
+
+      iex> <<1, 0>> <<< 2
+      <<4, 0>>
+
+  """
+  def bsl(left, right) when is_binary(left) and is_integer(right) do
+    bit_size = byte_size(left) * 8
+    << :erlang.bsl(:binary.decode_unsigned(left), right) :: unsigned-big-integer-size(bit_size) >>
+  end
+
+  @doc """
+  Calculates the result of an arithmetic right shift.
+
+      iex> <<4, 0>> >>> 2
+      <<1, 0>>
+
+  """
+  def left >>> right when is_binary(left) and is_integer(right) do
+    bit_size = byte_size(left) * 8
+    << :erlang.bsr(:binary.decode_unsigned(left), right) :: unsigned-big-integer-size(bit_size) >>
+  end
+
+  @doc """
+  Calculates the result of an arithmetic right shift.
+
+      iex> <<4, 0>> >>> 2
+      <<1, 0>>
+
+  """
+  def bsr(left, right) when is_binary(left) and is_integer(right) do
+    bit_size = byte_size(left) * 8
+    << :erlang.bsr(:binary.decode_unsigned(left), right) :: unsigned-big-integer-size(bit_size) >>
+  end
+
 end
