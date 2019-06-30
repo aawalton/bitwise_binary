@@ -1,6 +1,6 @@
 defmodule Bitwise.Binary do
   @moduledoc """
-  Simple module to extend bitwise operations to full binaries (and not just integers)
+  Simple module to extend bitwise operations to full binaries (and not just integers).
   """
   
   @doc """
